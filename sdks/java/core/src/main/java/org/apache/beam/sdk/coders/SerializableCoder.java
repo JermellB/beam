@@ -18,6 +18,7 @@
 package org.apache.beam.sdk.coders;
 
 import com.google.common.collect.ImmutableList;
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -136,6 +137,7 @@ public class SerializableCoder<T extends Serializable> extends CustomCoder<T> {
       throws IOException, CoderException {
     try {
       ObjectInputStream ois = new ObjectInputStream(inStream);
+      ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
       return type.cast(ois.readObject());
     } catch (ClassNotFoundException e) {
       throw new CoderException("unable to deserialize record", e);
