@@ -359,7 +359,7 @@ public class PubsubIO {
      * </ul>
      */
     public static PubsubTopic fromPath(String path) {
-      if (path.equals(TOPIC_DEV_NULL_TEST_NAME)) {
+      if (TOPIC_DEV_NULL_TEST_NAME.equals(path)) {
         return new PubsubTopic(Type.FAKE, "", path);
       }
 

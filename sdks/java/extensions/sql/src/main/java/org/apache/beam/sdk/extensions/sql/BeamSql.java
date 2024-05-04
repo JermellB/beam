@@ -231,7 +231,7 @@ public class BeamSql {
       if (sqlNode instanceof SqlSelect) {
         SqlSelect select = (SqlSelect) sqlNode;
         String tableName = select.getFrom().toString();
-        if (!tableName.equalsIgnoreCase(PCOLLECTION_TABLE_NAME)) {
+        if (!PCOLLECTION_TABLE_NAME.equalsIgnoreCase(tableName)) {
           throw new IllegalStateException("Use fixed table name " + PCOLLECTION_TABLE_NAME);
         }
       } else {

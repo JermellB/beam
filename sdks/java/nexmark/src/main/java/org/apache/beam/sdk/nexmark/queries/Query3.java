@@ -123,9 +123,9 @@ public class Query3 extends NexmarkQuery {
 
                       @Override
                       public Boolean apply(Person person) {
-                        return person.state.equals("OR")
-                            || person.state.equals("ID")
-                            || person.state.equals("CA");
+                        return "OR".equals(person.state)
+                            || "ID".equals(person.state)
+                            || "CA".equals(person.state);
                       }
                     }))
 

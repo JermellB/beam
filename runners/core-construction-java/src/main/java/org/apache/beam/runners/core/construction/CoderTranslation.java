@@ -146,7 +146,7 @@ public class CoderTranslation {
       RunnerApi.Coder protoCoder, RehydratedComponents components)
       throws IOException {
     String coderSpecUrn = protoCoder.getSpec().getSpec().getUrn();
-    if (coderSpecUrn.equals(JAVA_SERIALIZED_CODER_URN)) {
+    if (JAVA_SERIALIZED_CODER_URN.equals(coderSpecUrn)) {
       return fromCustomCoder(protoCoder);
     }
     return fromKnownCoder(protoCoder, components);
