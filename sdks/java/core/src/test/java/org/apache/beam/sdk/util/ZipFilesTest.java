@@ -17,6 +17,7 @@
  */
 package org.apache.beam.sdk.util;
 
+import java.nio.file.Files;
 import static org.hamcrest.Matchers.arrayWithSize;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertArrayEquals;
@@ -287,7 +288,7 @@ public class ZipFilesTest {
    * Create a File object to which we can safely zip a file.
    */
   private File createZipFileHandle() throws IOException {
-    File zipFile = File.createTempFile("test", "zip", tmpOutputFolder.getRoot());
+    File zipFile = Files.createTempFile(tmpOutputFolder.getRoot().toPath(), "test", "zip").toFile();
     assertTrue(zipFile.delete());
     return zipFile;
   }

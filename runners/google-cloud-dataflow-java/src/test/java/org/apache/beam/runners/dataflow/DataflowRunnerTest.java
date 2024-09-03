@@ -547,9 +547,9 @@ public class DataflowRunnerTest implements Serializable {
     final String cloudDataflowDataset = "somedataset";
 
     // Create some temporary files.
-    File temp1 = File.createTempFile("DataflowRunnerTest", "txt");
+    File temp1 = Files.createTempFile("DataflowRunnerTest", "txt").toFile();
     temp1.deleteOnExit();
-    File temp2 = File.createTempFile("DataflowRunnerTest2", "txt");
+    File temp2 = Files.createTempFile("DataflowRunnerTest2", "txt").toFile();
     temp2.deleteOnExit();
 
     String overridePackageName = "alias.txt";
