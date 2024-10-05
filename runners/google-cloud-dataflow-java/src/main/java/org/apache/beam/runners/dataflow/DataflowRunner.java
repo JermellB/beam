@@ -21,6 +21,7 @@ import static com.google.common.base.MoreObjects.firstNonNull;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Strings.isNullOrEmpty;
+import java.security.SecureRandom;
 import static org.apache.beam.sdk.util.SerializableUtils.serializeToByteArray;
 import static org.apache.beam.sdk.util.StringUtils.byteArrayToJsonString;
 
@@ -648,7 +649,7 @@ public class DataflowRunner extends PipelineRunner<DataflowPipelineJob> {
     // job previously created with the same job name, and that the job creation
     // has been effectively rejected. The SDK should return
     // Error::Already_Exists to user in that case.
-    int randomNum = new Random().nextInt(9000) + 1000;
+    int randomNum = new SecureRandom().nextInt(9000) + 1000;
     String requestId = DateTimeFormat.forPattern("YYYYMMddHHmmssmmm").withZone(DateTimeZone.UTC)
         .print(DateTimeUtils.currentTimeMillis()) + "_" + randomNum;
 

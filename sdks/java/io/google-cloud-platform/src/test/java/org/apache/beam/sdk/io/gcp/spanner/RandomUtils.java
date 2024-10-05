@@ -17,6 +17,7 @@
  */
 package org.apache.beam.sdk.io.gcp.spanner;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 /**
@@ -30,7 +31,7 @@ public class RandomUtils {
   }
 
   public static String randomAlphaNumeric(int length) {
-    Random random = new Random();
+    Random random = new SecureRandom();
     char[] result = new char[length];
     for (int i = 0; i < length; i++) {
       result[i] = ALPHANUMERIC[random.nextInt(ALPHANUMERIC.length)];
