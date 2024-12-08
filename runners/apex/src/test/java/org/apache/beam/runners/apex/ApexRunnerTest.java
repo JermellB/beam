@@ -24,6 +24,7 @@ import com.datatorrent.stram.engine.OperatorContext;
 import com.google.common.collect.Sets;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.util.Properties;
 import java.util.Set;
 import org.apache.beam.sdk.Pipeline;
@@ -60,7 +61,7 @@ public class ApexRunnerTest {
     Assert.assertNotNull(t1Meta);
     Assert.assertEquals(new Integer(32), t1Meta.getValue(OperatorContext.MEMORY_MB));
 
-    File tmp = File.createTempFile("beam-runners-apex-", ".properties");
+    File tmp = Files.createTempFile("beam-runners-apex-", ".properties").toFile();
     tmp.deleteOnExit();
     Properties props = new Properties();
     props.setProperty("apex.operator." + operName + ".attr.MEMORY_MB", "64");
