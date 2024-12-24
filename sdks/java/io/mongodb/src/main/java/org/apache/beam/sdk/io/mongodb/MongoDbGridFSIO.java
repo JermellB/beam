@@ -30,6 +30,7 @@ import com.mongodb.gridfs.GridFS;
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSInputFile;
 import com.mongodb.util.JSON;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -156,7 +157,7 @@ public class MongoDbGridFSIO {
       final Instant time = new Instant(input.getUploadDate().getTime());
       try (BufferedReader reader =
         new BufferedReader(new InputStreamReader(input.getInputStream()))) {
-        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+        for (String line = BoundedLineReader.readLine(reader, 5_000_000); line != null; line = BoundedLineReader.readLine(reader, 5_000_000)) {
           callback.output(line, time);
         }
       }
