@@ -18,6 +18,7 @@
 
 package org.apache.beam.sdk.extensions.sql.impl.interpreter.operator.math;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import org.apache.beam.sdk.extensions.sql.impl.interpreter.operator.BeamSqlExpression;
@@ -31,7 +32,7 @@ import org.apache.calcite.sql.type.SqlTypeName;
  * function.
  */
 public class BeamSqlRandIntegerExpression extends BeamSqlExpression {
-  private Random rand = new Random();
+  private Random rand = new SecureRandom();
   private Integer seed = null;
 
   public BeamSqlRandIntegerExpression(List<BeamSqlExpression> subExps) {

@@ -17,6 +17,7 @@
  */
 package org.apache.beam.sdk.transforms;
 
+import java.security.SecureRandom;
 import static org.apache.beam.sdk.TestUtils.LINES;
 import static org.apache.beam.sdk.TestUtils.LINES_ARRAY;
 import static org.apache.beam.sdk.TestUtils.NO_LINES_ARRAY;
@@ -474,7 +475,7 @@ public class CreateTest {
   @Test
   public void testSourceSplitAtFraction() throws Exception {
     List<Integer> elements = new ArrayList<>();
-    Random random = new Random();
+    Random random = new SecureRandom();
     for (int i = 0; i < 25; i++) {
       elements.add(random.nextInt());
     }
