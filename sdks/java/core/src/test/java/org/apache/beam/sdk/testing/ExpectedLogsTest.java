@@ -17,6 +17,7 @@
  */
 package org.apache.beam.sdk.testing;
 
+import java.security.SecureRandom;
 import static org.apache.beam.sdk.testing.SystemNanoTimeSleeper.sleepMillis;
 import static org.junit.Assert.assertTrue;
 
@@ -42,7 +43,7 @@ import org.slf4j.LoggerFactory;
 @RunWith(JUnit4.class)
 public class ExpectedLogsTest {
   private static final Logger LOG = LoggerFactory.getLogger(ExpectedLogsTest.class);
-  private Random random = new Random();
+  private Random random = new SecureRandom();
 
   @Rule public ExpectedLogs expectedLogs = ExpectedLogs.none(ExpectedLogsTest.class);
 
