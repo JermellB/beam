@@ -17,6 +17,7 @@
  */
 package org.apache.beam.sdk.coders;
 
+import io.github.pixee.security.ObjectInputFilters;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -227,6 +228,7 @@ public class AvroCoderTest {
     //De-serialization of object
     ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
     ObjectInputStream in = new ObjectInputStream(bis);
+    ObjectInputFilters.enableObjectFilterIfUnprotected(in);
     AvroCoder<Pojo> copied = (AvroCoder<Pojo>) in.readObject();
 
     CoderProperties.coderDecodeEncodeEqual(copied, value);
