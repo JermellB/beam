@@ -36,6 +36,8 @@ import com.google.common.io.ByteSource;
 import com.google.common.io.CharSource;
 import com.google.common.io.Resources;
 import com.google.common.reflect.Reflection;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -470,7 +472,7 @@ final class ClassPath {
      */
     @VisibleForTesting
     static URL getClassPathEntry(File jarFile, String path) throws MalformedURLException {
-      return new URL(jarFile.toURI().toURL(), path);
+      return Urls.create(jarFile.toURI().toURL(), path, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
     }
   }
 
