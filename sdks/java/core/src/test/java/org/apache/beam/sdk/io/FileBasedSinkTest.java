@@ -17,6 +17,7 @@
  */
 package org.apache.beam.sdk.io;
 
+import io.github.pixee.security.BoundedLineReader;
 import static org.apache.beam.sdk.io.WriteFiles.UNKNOWN_SHARDNUM;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -116,7 +117,7 @@ public class FileBasedSinkTest {
     try (BufferedReader reader = new BufferedReader(new FileReader(file.toString()))) {
       List<String> actual = new ArrayList<>();
       for (;;) {
-        String line = reader.readLine();
+        String line = BoundedLineReader.readLine(reader, 5_000_000);
         if (line == null) {
           break;
         }
@@ -468,7 +469,7 @@ public class FileBasedSinkTest {
   private void assertReadValues(final BufferedReader br, String... values) throws IOException {
     try (final BufferedReader _br = br) {
       for (String value : values) {
-        assertEquals(String.format("Line should read '%s'", value), value, _br.readLine());
+        assertEquals(String.format("Line should read '%s'", value), value, BoundedLineReader.readLine(_br, 5_000_000));
       }
     }
   }

@@ -18,6 +18,7 @@
 package org.apache.beam.sdk.io;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
+import io.github.pixee.security.BoundedLineReader;
 import static org.apache.beam.sdk.TestUtils.LINES2_ARRAY;
 import static org.apache.beam.sdk.TestUtils.LINES_ARRAY;
 import static org.apache.beam.sdk.TestUtils.NO_LINES_ARRAY;
@@ -413,7 +414,7 @@ public class TextIOWriteTest {
       try (BufferedReader reader = new BufferedReader(new FileReader(tmpFile))) {
         List<String> currentFile = new ArrayList<>();
         while (true) {
-          String line = reader.readLine();
+          String line = BoundedLineReader.readLine(reader, 5_000_000);
           if (line == null) {
             break;
           }

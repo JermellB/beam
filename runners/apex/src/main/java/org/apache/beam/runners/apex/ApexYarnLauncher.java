@@ -25,6 +25,7 @@ import com.datatorrent.api.DAG;
 import com.datatorrent.api.StreamingApplication;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Sets;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -176,7 +177,7 @@ public class ApexYarnLauncher {
         String line;
         List<String> excludes = new ArrayList<>();
         int excludeLevel = Integer.MAX_VALUE;
-        while ((line = br.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
           for (int i = 0; i < line.length(); i++) {
             char c = line.charAt(i);
             if (Character.isLetter(c)) {
