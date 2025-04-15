@@ -21,6 +21,7 @@ import com.google.api.services.bigquery.model.TableFieldSchema;
 import com.google.api.services.bigquery.model.TableReference;
 import com.google.api.services.bigquery.model.TableRow;
 import com.google.api.services.bigquery.model.TableSchema;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -477,7 +478,7 @@ public class TriggerExample {
     @ProcessElement
     public void processElement(ProcessContext c) throws Exception {
       Instant timestamp = Instant.now();
-      Random random = new Random();
+      Random random = new SecureRandom();
       if (random.nextDouble() < THRESHOLD){
         int range = MAX_DELAY - MIN_DELAY;
         int delayInMinutes = random.nextInt(range) + MIN_DELAY;

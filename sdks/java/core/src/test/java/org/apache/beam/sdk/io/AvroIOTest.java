@@ -18,6 +18,7 @@
 package org.apache.beam.sdk.io;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
+import java.security.SecureRandom;
 import static org.apache.avro.file.DataFileConstants.SNAPPY_CODEC;
 import static org.apache.beam.sdk.io.fs.ResolveOptions.StandardResolveOptions.RESOLVE_FILE;
 import static org.apache.beam.sdk.transforms.display.DisplayDataMatchers.hasDisplayItem;
@@ -668,7 +669,7 @@ public class AvroIOTest implements Serializable {
             base.plus(Duration.standardSeconds(0)), base.plus(Duration.standardSeconds(10)),
             base.plus(Duration.standardSeconds(20)), base.plus(Duration.standardSeconds(30)));
 
-    Random random = new Random();
+    Random random = new SecureRandom();
     for (int i = 0; i < 100; ++i) {
       GenericClass item = new GenericClass(i, String.valueOf(i));
       allElements.add(item);

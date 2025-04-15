@@ -19,6 +19,7 @@
 package org.apache.beam.sdk.io.gcp.datastore;
 
 import com.google.common.annotations.VisibleForTesting;
+import java.security.SecureRandom;
 import java.util.Random;
 import org.apache.beam.sdk.transforms.Sum;
 import org.apache.beam.sdk.util.MovingFunction;
@@ -54,7 +55,7 @@ class AdaptiveThrottler {
    */
   public AdaptiveThrottler(long samplePeriodMs, long sampleUpdateMs,
       double overloadRatio) {
-    this(samplePeriodMs, sampleUpdateMs, overloadRatio, new Random());
+    this(samplePeriodMs, sampleUpdateMs, overloadRatio, new SecureRandom());
   }
 
   @VisibleForTesting
