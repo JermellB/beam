@@ -18,6 +18,7 @@
 
 package org.apache.beam.runners.spark.translation.streaming;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -85,6 +86,7 @@ public class Checkpoint {
       return null;
     }
     ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(bytes));
+    ObjectInputFilters.enableObjectFilterIfUnprotected(objectInputStream);
     T value = (T) objectInputStream.readObject();
     objectInputStream.close();
     return value;
