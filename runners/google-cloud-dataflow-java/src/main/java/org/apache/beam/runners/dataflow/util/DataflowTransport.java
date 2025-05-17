@@ -17,6 +17,8 @@
  */
 package org.apache.beam.runners.dataflow.util;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import static org.apache.beam.sdk.util.Transport.getJsonFactory;
 import static org.apache.beam.sdk.util.Transport.getTransport;
 
@@ -51,7 +53,7 @@ public class DataflowTransport {
 
   private static ApiComponents apiComponentsFromUrl(String urlString) {
     try {
-      URL url = new URL(urlString);
+      URL url = Urls.create(urlString, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
       String rootUrl = url.getProtocol() + "://" + url.getHost()
           + (url.getPort() > 0 ? ":" + url.getPort() : "");
       return new ApiComponents(rootUrl, url.getPath());
