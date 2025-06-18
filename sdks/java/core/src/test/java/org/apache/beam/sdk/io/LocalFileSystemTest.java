@@ -17,6 +17,7 @@
  */
 package org.apache.beam.sdk.io;
 
+import java.nio.file.Files;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
@@ -293,7 +294,7 @@ public class LocalFileSystemTest {
   @Test
   public void testMatchMultipleWithoutSubdirectoryExpansion() throws Exception {
     File unmatchedSubDir = temporaryFolder.newFolder("aaa");
-    File unmatchedSubDirFile = File.createTempFile("sub-dir-file", "", unmatchedSubDir);
+    File unmatchedSubDirFile = Files.createTempFile(unmatchedSubDir.toPath(), "sub-dir-file", "").toFile();
     unmatchedSubDirFile.deleteOnExit();
     List<String> expected = ImmutableList.of(temporaryFolder.newFile("a").toString(),
         temporaryFolder.newFile("aa").toString(), temporaryFolder.newFile("ab").toString());
@@ -310,10 +311,10 @@ public class LocalFileSystemTest {
   @Test
   public void testMatchMultipleWithSubdirectoryExpansion() throws Exception {
     File matchedSubDir = temporaryFolder.newFolder("a");
-    File matchedSubDirFile = File.createTempFile("sub-dir-file", "", matchedSubDir);
+    File matchedSubDirFile = Files.createTempFile(matchedSubDir.toPath(), "sub-dir-file", "").toFile();
     matchedSubDirFile.deleteOnExit();
     File unmatchedSubDir = temporaryFolder.newFolder("b");
-    File unmatchedSubDirFile = File.createTempFile("sub-dir-file", "", unmatchedSubDir);
+    File unmatchedSubDirFile = Files.createTempFile(unmatchedSubDir.toPath(), "sub-dir-file", "").toFile();
     unmatchedSubDirFile.deleteOnExit();
 
     List<String> expected = ImmutableList.of(matchedSubDirFile.toString(),

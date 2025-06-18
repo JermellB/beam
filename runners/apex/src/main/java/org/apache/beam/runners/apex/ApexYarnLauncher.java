@@ -86,7 +86,7 @@ public class ApexYarnLauncher {
     StringBuilder classpath = new StringBuilder();
     for (File path : jarsToShip) {
       if (path.isDirectory()) {
-        File tmpJar = File.createTempFile("beam-runners-apex-", ".jar");
+        File tmpJar = Files.createTempFile("beam-runners-apex-", ".jar").toFile();
         createJar(path, tmpJar);
         tmpJar.deleteOnExit();
         path = tmpJar;
@@ -113,7 +113,7 @@ public class ApexYarnLauncher {
   }
 
   protected AppHandle launchApp(LaunchParams params) throws IOException {
-    File tmpFile = File.createTempFile("beam-runner-apex", "params");
+    File tmpFile = Files.createTempFile("beam-runner-apex", "params").toFile();
     tmpFile.deleteOnExit();
     try (FileOutputStream fos = new FileOutputStream(tmpFile)) {
       SerializationUtils.serialize(params, fos);
