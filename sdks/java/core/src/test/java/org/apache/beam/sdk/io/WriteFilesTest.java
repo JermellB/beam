@@ -18,6 +18,7 @@
 package org.apache.beam.sdk.io;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
+import io.github.pixee.security.BoundedLineReader;
 import static org.apache.beam.sdk.transforms.display.DisplayDataMatchers.hasDisplayItem;
 import static org.apache.beam.sdk.transforms.display.DisplayDataMatchers.includesDisplayDataFor;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -712,7 +713,7 @@ public class WriteFilesTest {
     for (File outputFile : outputFiles) {
       try (BufferedReader reader = new BufferedReader(new FileReader(outputFile))) {
         for (;;) {
-          String line = reader.readLine();
+          String line = BoundedLineReader.readLine(reader, 5_000_000);
           if (line == null) {
             break;
           }

@@ -17,6 +17,7 @@
  */
 package org.apache.beam.sdk.io.mongodb;
 
+import io.github.pixee.security.BoundedLineReader;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -219,7 +220,7 @@ public class MongoDBGridFSIOTest implements Serializable {
                   MongoDbGridFSIO.ParserCallback<KV<String, Integer>> callback) throws IOException {
                 try (final BufferedReader reader =
                     new BufferedReader(new InputStreamReader(input.getInputStream()))) {
-                  String line = reader.readLine();
+                  String line = BoundedLineReader.readLine(reader, 5_000_000);
                   while (line != null) {
                     try (Scanner scanner = new Scanner(line.trim())) {
                       scanner.useDelimiter("\\t");
@@ -228,7 +229,7 @@ public class MongoDBGridFSIOTest implements Serializable {
                       int score = scanner.nextInt();
                       callback.output(KV.of(name, score), new Instant(timestamp));
                     }
-                    line = reader.readLine();
+                    line = BoundedLineReader.readLine(reader, 5_000_000);
                   }
                 }
               }

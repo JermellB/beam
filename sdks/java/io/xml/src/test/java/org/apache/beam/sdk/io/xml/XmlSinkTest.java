@@ -17,6 +17,7 @@
  */
 package org.apache.beam.sdk.io.xml;
 
+import io.github.pixee.security.BoundedLineReader;
 import static org.apache.beam.sdk.transforms.display.DisplayDataMatchers.hasDisplayItem;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -217,7 +218,7 @@ public class XmlSinkTest {
     try (BufferedReader reader = new BufferedReader(
         new InputStreamReader(new FileInputStream(tmpFile), charset))) {
       for (;;) {
-        String line = reader.readLine();
+        String line = BoundedLineReader.readLine(reader, 5_000_000);
         if (line == null) {
           break;
         }

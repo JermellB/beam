@@ -44,6 +44,7 @@ import com.google.api.services.bigquery.model.TimePartitioning;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileReader;
@@ -402,7 +403,7 @@ class FakeJobService implements JobService, Serializable {
     List<TableRow> tableRows = Lists.newArrayList();
     try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
       String line;
-      while ((line = reader.readLine()) != null) {
+      while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
         TableRow tableRow = coder.decode(
             new ByteArrayInputStream(line.getBytes(StandardCharsets.UTF_8)), Context.OUTER);
         tableRows.add(tableRow);
