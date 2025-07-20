@@ -17,6 +17,7 @@
  */
 package org.apache.beam.sdk.io.mongodb;
 
+import java.security.SecureRandom;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -142,7 +143,7 @@ public class MongoDBGridFSIOTest implements Serializable {
 
     gridfs = new GridFS(database, "mapBucket");
     long now = System.currentTimeMillis();
-    Random random = new Random();
+    Random random = new SecureRandom();
     String[] scientists = {"Einstein", "Darwin", "Copernicus", "Pasteur", "Curie", "Faraday",
         "Newton", "Bohr", "Galilei", "Maxwell"};
     for (int x = 0; x < 10; x++) {

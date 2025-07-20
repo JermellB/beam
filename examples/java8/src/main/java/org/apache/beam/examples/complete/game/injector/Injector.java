@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -83,7 +84,7 @@ import org.joda.time.format.DateTimeFormatter;
  */
 class Injector {
   private static Pubsub pubsub;
-  private static Random random = new Random();
+  private static Random random = new SecureRandom();
   private static String topic;
   private static String project;
   private static final String TIMESTAMP_ATTRIBUTE = "timestamp_ms";

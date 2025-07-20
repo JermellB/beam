@@ -18,6 +18,7 @@
 package org.apache.beam.sdk.transforms;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import java.security.SecureRandom;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -272,7 +273,7 @@ public class Sample {
     private final int sampleSize;
     private final Top.TopCombineFn<KV<Integer, T>, SerializableComparator<KV<Integer, T>>>
         topCombineFn;
-    private final Random rand = new Random();
+    private final Random rand = new SecureRandom();
 
     private FixedSizedSampleFn(int sampleSize) {
       if (sampleSize < 0) {

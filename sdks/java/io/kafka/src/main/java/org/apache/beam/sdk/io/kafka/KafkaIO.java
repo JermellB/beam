@@ -46,6 +46,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -1194,7 +1195,7 @@ public class KafkaIO {
       Object groupId = spec.getConsumerConfig().get(ConsumerConfig.GROUP_ID_CONFIG);
       // override group_id and disable auto_commit so that it does not interfere with main consumer
       String offsetGroupId = String.format("%s_offset_consumer_%d_%s", name,
-          (new Random()).nextInt(Integer.MAX_VALUE), (groupId == null ? "none" : groupId));
+          (new SecureRandom()).nextInt(Integer.MAX_VALUE), (groupId == null ? "none" : groupId));
       Map<String, Object> offsetConsumerConfig = new HashMap<>(spec.getConsumerConfig());
       offsetConsumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, offsetGroupId);
       offsetConsumerConfig.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
@@ -2262,7 +2263,7 @@ public class KafkaIO {
                      shard, nextId, writerId, spec.getTopic(), spec.getSinkGroupId());
 
           writerId = String.format("%X - %s",
-                                   new Random().nextInt(Integer.MAX_VALUE),
+                                   new SecureRandom().nextInt(Integer.MAX_VALUE),
                                    DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")
                                        .withZone(DateTimeZone.UTC)
                                        .print(DateTimeUtils.currentTimeMillis()));
