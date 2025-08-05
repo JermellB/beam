@@ -27,6 +27,7 @@ import com.google.cloud.spanner.KeySet;
 import com.google.cloud.spanner.Mutation;
 import com.google.cloud.spanner.Type;
 import com.google.cloud.spanner.Value;
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -121,6 +122,7 @@ class MutationGroupEncoder {
     String tableName = tables.get(tableIndex);
 
     ObjectInputStream in = new ObjectInputStream(bis);
+    ObjectInputFilters.enableObjectFilterIfUnprotected(in);
     KeySet keySet;
     try {
       keySet = (KeySet) in.readObject();
@@ -339,6 +341,7 @@ class MutationGroupEncoder {
           m.set(fieldName).toBoolArray((Iterable<Boolean>) null);
         } else {
           ObjectInputStream out = new ObjectInputStream(bis);
+          ObjectInputFilters.enableObjectFilterIfUnprotected(out);
           m.set(fieldName).toBoolArray((List<Boolean>) out.readObject());
         }
         break;
@@ -348,6 +351,7 @@ class MutationGroupEncoder {
           m.set(fieldName).toInt64Array((Iterable<Long>) null);
         } else {
           ObjectInputStream out = new ObjectInputStream(bis);
+          ObjectInputFilters.enableObjectFilterIfUnprotected(out);
           m.set(fieldName).toInt64Array((List<Long>) out.readObject());
         }
         break;
@@ -357,6 +361,7 @@ class MutationGroupEncoder {
           m.set(fieldName).toFloat64Array((Iterable<Double>) null);
         } else {
           ObjectInputStream out = new ObjectInputStream(bis);
+          ObjectInputFilters.enableObjectFilterIfUnprotected(out);
           m.set(fieldName).toFloat64Array((List<Double>) out.readObject());
         }
         break;
@@ -366,6 +371,7 @@ class MutationGroupEncoder {
           m.set(fieldName).toStringArray(null);
         } else {
           ObjectInputStream out = new ObjectInputStream(bis);
+          ObjectInputFilters.enableObjectFilterIfUnprotected(out);
           m.set(fieldName).toStringArray((List<String>) out.readObject());
         }
         break;
@@ -375,6 +381,7 @@ class MutationGroupEncoder {
           m.set(fieldName).toBytesArray(null);
         } else {
           ObjectInputStream out = new ObjectInputStream(bis);
+          ObjectInputFilters.enableObjectFilterIfUnprotected(out);
           m.set(fieldName).toBytesArray((List<ByteArray>) out.readObject());
         }
         break;
@@ -384,6 +391,7 @@ class MutationGroupEncoder {
           m.set(fieldName).toTimestampArray(null);
         } else {
           ObjectInputStream out = new ObjectInputStream(bis);
+          ObjectInputFilters.enableObjectFilterIfUnprotected(out);
           m.set(fieldName).toTimestampArray((List<Timestamp>) out.readObject());
         }
         break;
@@ -393,6 +401,7 @@ class MutationGroupEncoder {
           m.set(fieldName).toDateArray(null);
         } else {
           ObjectInputStream out = new ObjectInputStream(bis);
+          ObjectInputFilters.enableObjectFilterIfUnprotected(out);
           m.set(fieldName).toDateArray((List<Date>) out.readObject());
         }
         break;
